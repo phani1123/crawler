@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000000;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid rgb(238, 238, 238);
+            padding: 8px;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #000000;
+            font-size: larger;
+            color: white;
+        }
+
+        thead th {
+            text-align: center;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        tbody tr td {
+            text-align: center;
+            color: white;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; background-color: #000000; padding: 10px;">
+        <nav style="display: flex; justify-content: center; align-items: center;">
+            <img src="https://www.celigo.com/wp-content/uploads/2024/05/celigo-logo-white-on-black-square.jpg"
+                alt="Logo" style="margin-right: 20px;" width="80px"> <!-- Replace 'logo.png' with your logo's path -->
+            <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
+                <li style="float: left;">
+                    <a href="https://github.com/celigo"
+                        style="color: white; text-align: center; padding: 14px 16px; text-decoration: none; display: block;">Setup</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; background-color: #000000; padding: 10px;">
+        <section style="display: flex; justify-content: center; align-items: center;">
+
+            <p style="color: rgb(255, 255, 255);">UI selectors without data-test attributes</p>
+        </section>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Component name</th>
+                <th>element</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>Example Component</td>
+                <td>example-component.js</td>
+                <td>example-repo</td>
+            </tr> -->
+
+        </tbody>
+    </table>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Feature flag to toggle between unique items and direct addition
+            const useUniqueItems = false; 
+            const ignoreComponents = ['CeligoLinkAppLogo','FlowEllipsisMenu','HelpContent','HelpContent','VirtualizedDragContainer','AutoScrollEditorTerminal','Help','HelpVideoLink','NetSuiteMappingAssistant']; // Add components to ignore
+            const ignoreElements = ['div','b','Box','Typography','span','undefined','CSSTransition','a','img','RawHtml','u','br','MenuItem','EllipsisActionMenu','Spinner','Tooltip','RunIcon','CancelFlowTestRun','StyledTypography','li','ul','p','undefined','AIDescriptionContent']; // Add elements to ignore
+
+            if (useUniqueItems) {
+                const uniqueItems = new Set();
+                fetch('data.json') // Adjust the path to your JSON file
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.querySelector('table tbody');
+                        data.forEach(item => {
+                            const componentName = item.fileName.replace(".json", "");
+                            if (!uniqueItems.has(item.fileName) && !ignoreComponents.includes(componentName) && !ignoreElements.includes(item.element)) {
+                                uniqueItems.add(item.fileName);
+                                const row = document.createElement('tr');
+                                row.innerHTML = `<td>${componentName}`;
+                                tableBody.appendChild(row);
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error loading the data:', error));
+            } else {
+                fetch('data.json') // Adjust the path to your JSON file
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.querySelector('table tbody');
+                        data.forEach(item => {
+                            const componentName = item.fileName.replace(".json", "");
+                            if (!ignoreComponents.includes(componentName) && !ignoreElements.includes(item.element)) {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `<td>${componentName}<b>⚠️</b></td><td>${item.element}</td>`;
+                                tableBody.appendChild(row);
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error loading the data:', error));
+            }
+        });
+    </script>
+</body>
+
+</html>
