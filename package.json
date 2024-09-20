@@ -1,0 +1,24 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "checkdt": "node src/main.js",
+    "checkdtv1": "node src/elementextractV1.js",
+    "pullrepos":" ./pull.sh  "
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "react-scanner": "^1.1.0"
+  },
+  "dependencies": {
+    "glob": "^10.4.1",
+    "react-docgen": "^7.0.3",
+    "react-element-to-jsx-string": "^15.0.0",
+    "react-jsx-parser": "^1.29.0"
+  }
+}
